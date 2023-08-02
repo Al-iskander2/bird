@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mi página con imagen que sigue el mouse</title>
+    <style>
+        body {
+            background-color: #C6DAD2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Evita barras de desplazamiento */
+        }
+        .centered-image {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            pointer-events: none;
+            transform: translate(-50%, -50%); /* Ajuste para centrar la imagen */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img class="centered-image" src="fly/1.png" alt="Imagen 1" id="image">
+    </div>
+
+    <script>
+        const image = document.getElementById('image');
+    
+        window.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+    
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+    
+            let angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+            angle += 90;
+    
+            // Comprobar en qué cuadrante está el cursor
+            if (mouseX > centerX) {
+                if (mouseY < centerY) {
+                    // El cursor está en el cuadrante I (y, x)
+                    image.src = 'fly/1.png';
+                } else {
+                    // El cursor está en el cuadrante IV (y, -x)
+                    image.src = 'fly/1.png';
+                }
+            } else {
+                if (mouseY < centerY) {
+                    // El cursor está en el cuadrante II (-y, x)
+                    image.src = 'fly/9.png';
+                } else {
+                    // El cursor está en el cuadrante III (-y, -x)
+                    image.src = 'fly/9.png';
+                }
+            }
+    
+            image.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+        });
+    </script>
+</body>
+</html>
+
